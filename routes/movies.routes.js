@@ -40,4 +40,27 @@ router.get("/movies", (req, res) => {
     .catch((e) => console.log(e))
 })
 
+router.get("/movies/:id", (req, res) => {
+  const { id } = req.params
+
+  Movie.findById(id)
+    .populate("cast")
+    .then((movieFound) => {
+      res.render("movies/movie-details", {
+        movie: movieFound,
+      })
+    })
+    .catch((e) => console.log(e))
+})
+
+router.post("/movies/:id/delete", (req, res) => {
+  const { id } = req.params
+
+  Movie.findByIdAndRemove(id)
+    .then(() => {
+      res.redirect("/movies")
+    })
+    .catch((e) => console.log(e))
+})
+
 module.exports = router
