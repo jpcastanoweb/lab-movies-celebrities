@@ -30,4 +30,14 @@ router.post("/movies/create", (req, res) => {
     .catch((e) => console.log(e))
 })
 
+router.get("/movies", (req, res) => {
+  Movie.find()
+    .then((moviesFound) => {
+      res.render("movies/movies.hbs", {
+        movies: moviesFound,
+      })
+    })
+    .catch((e) => console.log(e))
+})
+
 module.exports = router
