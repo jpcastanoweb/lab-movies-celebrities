@@ -19,4 +19,14 @@ router.post("/celebrities/create", (req, res) => {
     })
 })
 
+router.get("/celebrities", (req, res) => {
+  Celebrity.find()
+    .then((celebritiesFound) => {
+      res.render("celebrities/celebrities.hbs", {
+        celebrities: celebritiesFound,
+      })
+    })
+    .catch((e) => console.log(e))
+})
+
 module.exports = router
