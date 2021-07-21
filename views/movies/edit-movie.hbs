@@ -19,7 +19,12 @@
         <select name="castIds" id="cast-movie-edit" multiple>
         {{/with}}
         {{#each allCelebrities}}
-            <option value={{this._id}}>{{this.name}}</option>
+            {{#if this.selected}}
+                <option value={{this._id}} selected="true">{{this.name}}</option>
+            {{else}}
+                <option value={{this._id}}>{{this.name}}</option>
+            {{/if}}
+            
         {{/each}}
         {{#with movie}}
         </select>
