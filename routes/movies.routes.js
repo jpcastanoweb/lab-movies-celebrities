@@ -63,4 +63,32 @@ router.post("/movies/:id/delete", (req, res) => {
     .catch((e) => console.log(e))
 })
 
+router.get("/movies/:id/edit", (req, res) => {
+  Movie.findById(req.params.id)
+    .then((movie) => {
+      Celebrity.find({ _id: { $in: movie.cast } }).then((celebrities) => {
+        Celebrity.find().then((allCelebrities) => {
+          console.log("MovieFound ", movie)
+          console.log("Celebrities in movie", celebrities)
+          console.log("All Celebrities", allCelebrities)
+          res.render("movies/edit-movie", {
+            movie,
+            celebrities,
+            allCelebrities,
+          })
+        })
+      })
+    })
+    .catch((e) => console.log(e))
+})
+
+router.post("/movies/:id/edit", (req, res) => {
+  const { title, genre, plot, castIds } = req.body
+  Movie.findByIdAndUpdate(req.params.id, { title, genre, plot })
+    .then(() => {
+      res.redirect("/movies")
+    })
+    .catch((e) => console.log(e))
+})
+
 module.exports = router

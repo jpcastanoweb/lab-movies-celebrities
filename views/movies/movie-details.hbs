@@ -13,6 +13,7 @@
     <p>Catch Phrase: {{this.catchPhrase}}</p>
 {{/each}}
 <hr>
+<a href="/movies/{{this._id}}/edit">Edit Movie</a><br /><br />
 <form action="/movies/{{this._id}}/delete" method="POST">
     <button type="submit">Delete</button>
 </form>
